@@ -1,4 +1,4 @@
-# gluestack-ui-mcp-server
+# Gluestack UI V3: MCP Server
 
 A Model Context Protocol (MCP) server that empowers AI agents to build production-ready applications using **Gluestack UI v3**. It provides deep context on component anatomy, configuration, and best practices.
 
