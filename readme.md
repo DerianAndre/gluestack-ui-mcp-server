@@ -1,169 +1,107 @@
-# Gluestack Components MCP Server
+# Gluestack UI V3: MCP Server
 
-This project provides a Model Context Protocol (MCP) server for integrating Gluestack components with Claude Desktop and Cursor IDE.
+A Model Context Protocol (MCP) server that empowers AI agents to build production-ready applications using **Gluestack UI v3**. It provides deep context on component anatomy, configuration, and best practices.
 
-## Prerequisites
+## 🚀 Features
 
-- Node.js (v14 or higher)
-- Claude Desktop application OR Cursor IDE
+- **Component Intelligence**: Full anatomy and props for all v3.0.11 components.
+- **Architectural Guides**: Deep dives into NativeWind v4, React Native primitives, and Performance.
+- **Smart Prompts**: Pre-configured `gluestack-pro-expert` prompt for generating "Copy-Paste" standardized code.
+- **Template Patterns**: Access to production-grade implementation patterns for Auth, Dashboard, and E-commerce flows.
 
-## Setup Instructions
+## 🛠️ Tools
 
-### 1. Clone and Install Dependencies
+| Tool                           | Description                                                 |
+| :----------------------------- | :---------------------------------------------------------- |
+| `list_docs`                    | Lists all technical documentation files.                    |
+| `search_docs`                  | **(New)** Fuzzy search for documentation by keyword.        |
+| `read_doc`                     | Reads specific documentation content.                       |
+| `list_ui_components`           | Lists all available UI components.                          |
+| `get_all_components_metadata`  | Retrieves metadata for all components.                      |
+| `get_selected_components_docs` | Retrieves detailed anatomical docs for specific components. |
 
-```bash
-git clone <repository-url>
-cd <project-directory>
-npm install
-```
+## 📦 Installation
 
-## Integration Options
+### Prerequisites
 
-You can use this MCP server with either Claude Desktop or Cursor IDE:
+- Node.js v18+
+- npm / pnpm / yarn
 
----
+### Local Setup
 
-## Option 1: Claude Desktop Integration
+1. **Clone and Install**
 
-### 2. Install Claude Desktop
+   ```bash
+   git clone https://github.com/DerianAndre/gluestack-ui-mcp-server.git
+   cd gluestack-ui-mcp-server
+   npm install
+   ```
 
-Download and install Claude Desktop from the official Anthropic website if you haven't already.
+2. **Build the Server**
 
-### 3. Configure Claude Desktop MCP Server
+   ```bash
+   npm run build
+   ```
 
-You need to add this MCP server to your Claude Desktop configuration file.
+   _Note: The build process will automatically copy the `src/docs` directory to `dist/docs`._
 
-#### For macOS and Linux:
+## ⚙️ Configuration
 
-**Using Cursor Editor:**
+### Option 1: Claude Desktop
 
-```bash
-cursor ~/Library/Application\ Support/Claude/claude_desktop_config.json
-```
+Add this to your `claude_desktop_config.json`:
 
-**Using VS Code:**
-
-```bash
-code ~/Library/Application\ Support/Claude/claude_desktop_config.json
-```
-
-#### For Windows:
-
-**Using VS Code:**
-
-```powershell
-code $env:AppData\Claude\claude_desktop_config.json
-```
-
-### 4. Update Configuration File
-
-Add the following configuration to your `claude_desktop_config.json` file:
-
-#### For macOS and Linux:
+**macOS/Linux:**
 
 ```json
 {
   "mcpServers": {
-    "your-mcp-server-name": {
+    "gluestack-ui": {
       "command": "node",
-      "args": ["/complete/path/to/your/project/index.js"]
+      "args": ["/ABSOLUTE/PATH/TO/gluestack-ui-mcp-server/dist/index.js"]
     }
   }
 }
 ```
 
-#### For Windows:
+**Windows:**
 
 ```json
 {
   "mcpServers": {
-    "your-mcp-server-name": {
+    "gluestack-ui": {
       "command": "node",
-      "args": ["C:\\complete\\path\\to\\your\\project\\index.js"]
+      "args": [
+        "C:\\ABSOLUTE\\PATH\\TO\\gluestack-ui-mcp-server\\dist\\index.js"
+      ]
     }
   }
 }
 ```
 
-### 5. Start the MCP Server
+### Option 2: Cursor (MCP Settings)
 
-Navigate to your project directory and run:
+1. Open Cursor Settings > Features > MCP.
+2. Click "Add New Server".
+3. **Name**: `gluestack-ui`
+4. **Type**: `stdio`
+5. **Command**: `node C:\ABSOLUTE\PATH\TO\gluestack-ui-mcp-server\dist\index.js` (or correct path for your OS)
+
+## 🏗️ Development
+
+To run the server in development mode with auto-rebuild:
 
 ```bash
-node index.js
+npm run watch
 ```
 
-### 6. Restart Claude Desktop
+## 📂 Documentation Structure
 
-Close and reopen Claude Desktop application. You should now see the MCP server listed in the available tools menu.
+The server serves documentation from `src/docs/`:
 
-### Verification for Claude Desktop
-
-After following the setup steps:
-
-1. Open Claude Desktop
-2. Look for the MCP server in the tools menu, just below the input where you enter your prompt
-3. You should see "your-mcp-server-name" listed as an available MCP server
-
----
-
-## Option 2: Cursor IDE Integration
-
-### 2. Start the MCP Server
-
-First, start the MCP server by running:
-
-```bash
-node index.js
-```
-
-### 3. Setup MCP in Cursor
-
-1. Open Cursor IDE
-2. Navigate to **Settings** (top right corner)
-3. Select **MCP** from the settings menu
-4. Click **Add MCP** to add a new MCP server
-
-### 4. Configure MCP Server in Cursor
-
-Add the following configuration to your `mcp.json` file in Cursor:
-
-#### For macOS and Linux:
-
-```json
-{
-  "mcpServers": {
-    "your-mcp-server-name": {
-      "command": "node",
-      "args": ["/complete/path/to/your/project/index.js"]
-    }
-  }
-}
-```
-
-#### For Windows:
-
-```json
-{
-  "mcpServers": {
-    "your-mcp-server-name": {
-      "command": "node",
-      "args": ["C:\\complete\\path\\to\\your\\project\\index.js"]
-    }
-  }
-}
-```
-
-### 5. Complete Setup
-
-The MCP server will now be available directly in your Cursor IDE project. You can use the Gluestack components integration within your development workflow.
-
-### Verification for Cursor
-
-After setup:
-
-1. Check that the MCP server appears in Cursor's MCP settings
-2. Verify the server is running without errors
-3. Test the integration in your project
-
----
+- `guides/`: Ecosystem guides (React Native, Performance, etc.).
+- `core/`: Fundamental architecture and configuration.
+- `components/`: UI component APIs.
+- `templates/`: Categorized template screens.
+- `utils/`: Context providers and helper functions.
+- `types/`: Data structures and TypeScript information.
